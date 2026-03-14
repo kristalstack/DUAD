@@ -1,0 +1,33 @@
+1. Cree un algoritmo para ver un video en Youtube. Sea lo más especifico posible.
+1. Abra su navegador
+2. Navegue a youtube.com
+3. Busque el video en el buscador de youtube
+4. Haga clic en buscar
+5. Seleccione el video
+6. Reproduzca el video
+2. Cree un algoritmo que describa su rutina diaria. Use condiciones, condiciones multiples y ciclos.
+1. Si es día de trabajo
+     1. despiértese a las 9:00am
+2. Si no es día de trabajo
+      1. despiértese a la hora que quiera
+3. Si tiene ganas de orinar
+      1. vaya al baño
+4. Si hay café
+       1. prepárese una taza de café
+5. Si no hay café
+      1. revise si hay jugo
+6. Si hay jugo
+       1. sírvase un vaso de jugo
+7. Si no hay café, ni jugo, ni leche
+        2. vaya a comprar alguno para desayunar.
+9. Si hay platos sucios y hay jabón, lave los platos.
+10. Báñese
+11. Si es miércoles o domingo
+         1. lávese el cabello.
+12. Si no es miércoles ni domingo
+          2. no se lave el cabello.
+13. Abra la computadora y comience a trabajar
+14. Si son las 2pm, coma el almuerzo
+15. Mientras haya juguetes tirados:
+     i. Recoger juguetes
+16. Fin
