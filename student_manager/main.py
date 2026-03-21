@@ -1,3 +1,5 @@
+# student manager project
+
 from menu import show_menu, get_menu_option
 from actions import (
     add_students,
