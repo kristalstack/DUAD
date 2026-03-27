@@ -1,2 +1,23 @@
 __pycache__/
 *.pyc
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# OneDrive / Windows backup
+.msbackup/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
