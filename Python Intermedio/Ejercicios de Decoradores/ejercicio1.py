@@ -1,3 +1,5 @@
+# Example usage of decorator
+
 def log_function(func):
     def wrapper(*args, **kwargs):
         print(f"\nCalling function: {func.__name__}")
