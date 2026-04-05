@@ -16,7 +16,7 @@ def bubble_sort(arr):
     
     return arr
 
-numbers = [5, 3, 8, 4, 2]
+numbers = [5, 3, 8, 7, 2]
 
 sorted_numbers = bubble_sort(numbers)
 
