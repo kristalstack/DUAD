@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Salary",
+        "color": "#4ac974"
+    },
+    {
+        "name": "Transportation",
+        "color": "#e8ee0c"
+    },
+    {
+        "name": "Entertainment",
+        "color": "#b842f6"
+    },
+    {
+        "name": "Food",
+        "color": "#f9ac50"
+    },
+    {
+        "name": "General",
+        "color": "#4b5dff"
+    }
+]
