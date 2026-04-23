@@ -1,0 +1,11 @@
+Date,Title,Amount,Category,Type
+02/05/2025,Pizza,-10.0,Food,Expense
+03/07/2025,Salary,1000.0,Salary,Income
+05/07/2025,Movies,-12.0,Entertainment,Expense
+10/07/2025,Bus ticket,-5.0,Transportation,Expense
+11/07/2025,Groceries,-45.0,Food,Expense
+
+Totals:
+Income: ₡1000.0
+Expenses: ₡72.0
+Net Balance: ₡928.0
