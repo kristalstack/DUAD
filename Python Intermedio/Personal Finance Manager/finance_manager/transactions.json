@@ -40,5 +40,12 @@
         "category": "General",
         "type": "expense",
         "date": "05/07/2025"
+    },
+    {
+        "title": "Text expense",
+        "amount": 10.0,
+        "category": "Transportation",
+        "type": "expense",
+        "date": "10/07/2025"
     }
 ]
