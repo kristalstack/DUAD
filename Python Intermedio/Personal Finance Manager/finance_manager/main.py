@@ -18,7 +18,7 @@ CSV_PATH = "exported_transactions.csv"
 
 
 def update_interface(window, manager):
-    table = manager.get_transactions_table()
+    table = manager.transactions_to_table()
     colors = manager.get_row_colors()
 
     window["TRANSACTIONS_TABLE"].update(
@@ -65,8 +65,8 @@ def process_add_transaction(manager, window, type_):
         save_data(TRANSACTIONS_PATH, manager.transactions_to_dict())
         update_interface(window, manager)
 
-    except Exception as e:
-        sg.popup(str(e))
+    except Exception as error:
+        sg.popup(str(error))
 
 
 manager = FinanceManager()
@@ -78,7 +78,7 @@ manager.load_categories(categories)
 manager.load_transactions(transactions)
 
 window = create_main_window(
-    manager.get_transactions_table(),
+    manager.transactions_to_table(),
     manager.calculate_balance(),
     manager.get_row_colors()
 )
@@ -100,8 +100,8 @@ while True:
                 )
                 save_data(CATEGORIES_PATH, manager.categories_to_dict())
                 update_interface(window, manager)
-            except Exception as e:
-                sg.popup(str(e))
+            except Exception as error:
+                sg.popup(str(error))
 
     if event == "Edit Category":
         if not manager.has_categories():
@@ -120,8 +120,8 @@ while True:
                 )
                 save_data(CATEGORIES_PATH, manager.categories_to_dict())
                 update_interface(window, manager)
-            except Exception as e:
-                sg.popup(str(e))
+            except Exception as error:
+                sg.popup(str(error))
 
     if event == "Add Expense":
         process_add_transaction(manager, window, "expense")
@@ -143,8 +143,8 @@ while True:
                 manager,
                 filtered_transactions
             )
-        except Exception as e:
-            sg.popup(str(e))
+        except Exception as error:
+            sg.popup(str(error))
 
     if event == "Show All":
         update_interface(window, manager)
@@ -153,7 +153,7 @@ while True:
         try:
             export_transactions_csv(CSV_PATH, manager.transactions)
             sg.popup(f"CSV file exported successfully: {CSV_PATH}")
-        except Exception as e:
-            sg.popup(str(e))
+        except Exception as error:
+            sg.popup(str(error))
 
 window.close()
