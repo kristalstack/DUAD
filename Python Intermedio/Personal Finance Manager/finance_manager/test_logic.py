@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 from logic import FinanceManager
 
 
@@ -44,7 +45,7 @@ class TestFinanceManager(unittest.TestCase):
         self.assertEqual(len(self.manager.transactions), 1)
         self.assertEqual(self.manager.transactions[0].title, "Lunch")
         self.assertEqual(self.manager.transactions[0].type, "expense")
-        self.assertEqual(self.manager.transactions[0].date, "03/07/2025")
+        self.assertEqual(self.manager.transactions[0].date, date(2025, 7, 3))
 
     def test_add_valid_income(self):
         self.manager.add_category("Salary")
@@ -59,7 +60,7 @@ class TestFinanceManager(unittest.TestCase):
         self.assertEqual(len(self.manager.transactions), 1)
         self.assertEqual(self.manager.transactions[0].title, "Payment")
         self.assertEqual(self.manager.transactions[0].type, "income")
-        self.assertEqual(self.manager.transactions[0].date, "02/07/2025")
+        self.assertEqual(self.manager.transactions[0].date, date(2025, 7, 2))
 
     def test_do_not_allow_non_numeric_amount(self):
         self.manager.add_category("Food")
@@ -196,6 +197,34 @@ class TestFinanceManager(unittest.TestCase):
                 "15/07/2025",
                 "10/07/2025"
             )
+
+    def test_transactions_to_table_formats_dates_as_text(self):
+        self.manager.add_category("General")
+        self.manager.add_transaction(
+            "Food",
+            20,
+            "General",
+            "expense",
+            "03/07/2025"
+        )
+
+        table = self.manager.transactions_to_table()
+
+        self.assertEqual(table[0][0], "03/07/2025")
+
+    def test_transactions_to_dict_formats_dates_as_text(self):
+        self.manager.add_category("General")
+        self.manager.add_transaction(
+            "Food",
+            20,
+            "General",
+            "expense",
+            "03/07/2025"
+        )
+
+        data = self.manager.transactions_to_dict()
+
+        self.assertEqual(data[0]["date"], "03/07/2025")
 
 
 if __name__ == "__main__":
