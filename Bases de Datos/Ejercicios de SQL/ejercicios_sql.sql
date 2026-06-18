@@ -1,4 +1,3 @@
-```sql
 PRAGMA foreign_keys = ON;
 
 -- =========================
@@ -137,4 +136,3 @@ ORDER BY total_amount DESC;
 SELECT *
 FROM Invoices
 WHERE invoice_number = 1;
-```
