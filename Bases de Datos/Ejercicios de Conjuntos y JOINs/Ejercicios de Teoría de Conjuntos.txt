@@ -1,0 +1,39 @@
+# Ejercicios de Teoría de Conjuntos
+
+Conjuntos:
+
+All = {1,2,3,4,5,6,7,8,9,10}
+Even = {2,4,6,8,10}
+Odd = {1,3,5,7,9}
+
+1. Even ∪ Odd
+
+{1,2,3,4,5,6,7,8,9,10}
+
+2. Even ∩ Odd
+
+{}
+
+3. All - Odd
+
+{2,4,6,8,10}
+
+4. C(Even)
+
+Complemento de Even respecto a All:
+
+{1,3,5,7,9}
+
+5. C(Odd - All)
+
+Primero:
+
+Odd - All = {}
+
+Como el complemento se toma respecto a All:
+
+C({}) = {1,2,3,4,5,6,7,8,9,10}
+
+Resultado:
+
+{1,2,3,4,5,6,7,8,9,10}
