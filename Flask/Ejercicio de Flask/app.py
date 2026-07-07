@@ -4,129 +4,134 @@ import os
 
 app = Flask(__name__)
 
-ARCHIVO = "tareas.json"
-ESTADOS = ["Por Hacer", "En Progreso", "Completada"]
+FILE_NAME = "tareas.json"
+VALID_STATUSES = ["Por Hacer", "En Progreso", "Completada"]
 
 
-def leer_tareas():
-    if not os.path.exists(ARCHIVO):
+def read_tasks():
+    if not os.path.exists(FILE_NAME):
         return []
 
-    with open(ARCHIVO, "r", encoding="utf-8") as archivo:
-        return json.load(archivo)
+    with open(FILE_NAME, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-def guardar_tareas(tareas):
-    with open(ARCHIVO, "w", encoding="utf-8") as archivo:
-        json.dump(tareas, archivo, indent=4, ensure_ascii=False)
+def save_tasks(tasks):
+    with open(FILE_NAME, "w", encoding="utf-8") as file:
+        json.dump(tasks, file, indent=4, ensure_ascii=False)
 
 
-@app.route("/tareas", methods=["GET"])
-def obtener_tareas():
-    tareas = leer_tareas()
-    estado = request.args.get("estado")
+@app.route("/tasks", methods=["GET"])
+def get_tasks():
+    tasks = read_tasks()
+    status = request.args.get("status")
 
-    if estado:
-        tareas = [tarea for tarea in tareas if tarea["estado"] == estado]
+    if status:
+        tasks = [task for task in tasks if task["status"] == status]
 
-    return jsonify(tareas), 200
+    return jsonify(tasks), 200
 
 
-@app.route("/tareas", methods=["POST"])
-def crear_tarea():
-    tareas = leer_tareas()
-    datos = request.get_json()
+@app.route("/tasks", methods=["POST"])
+def create_task():
+    tasks = read_tasks()
+    data = request.get_json()
 
-    if not datos:
-        return jsonify({"error": "Debe enviar datos en formato JSON"}), 400
+    if not data:
+        return jsonify({"error": "Data must be sent in JSON format"}), 400
 
-    if "id" not in datos:
-        return jsonify({"error": "Debe indicar un identificador"}), 400
+    if "id" not in data:
+        return jsonify({"error": "Task id is required"}), 400
 
-    for tarea in tareas:
-        if tarea["id"] == datos["id"]:
-            return jsonify({"error": "El identificador ya existe"}), 400
+    if not isinstance(data["id"], int):
+        return jsonify({"error": "Task id must be an integer"}), 400
 
-    if not datos.get("titulo"):
-        return jsonify({"error": "No se pueden agregar tareas sin nombre"}), 400
+    for task in tasks:
+        if task["id"] == data["id"]:
+            return jsonify({"error": "A task with this id already exists"}), 400
 
-    if not datos.get("descripcion"):
-        return jsonify({"error": "No se pueden agregar tareas sin descripción"}), 400
+    if not data.get("title"):
+        return jsonify({"error": "Task title is required"}), 400
 
-    if not datos.get("estado"):
-        return jsonify({"error": "No se pueden agregar tareas sin estado"}), 400
+    if not data.get("description"):
+        return jsonify({"error": "Task description is required"}), 400
 
-    if datos["estado"] not in ESTADOS:
-        return jsonify({"error": "Estado inválido"}), 400
+    if not data.get("status"):
+        return jsonify({"error": "Task status is required"}), 400
 
-    nueva_tarea = {
-        "id": datos["id"],
-        "titulo": datos["titulo"],
-        "descripcion": datos["descripcion"],
-        "estado": datos["estado"]
+    if data["status"] not in VALID_STATUSES:
+        return jsonify({"error": "Invalid status"}), 400
+
+    new_task = {
+        "id": data["id"],
+        "title": data["title"],
+        "description": data["description"],
+        "status": data["status"]
     }
 
-    tareas.append(nueva_tarea)
-    guardar_tareas(tareas)
+    tasks.append(new_task)
+    save_tasks(tasks)
 
     return jsonify({
-        "mensaje": "Tarea creada correctamente",
-        "tarea": nueva_tarea
+        "message": "Task created successfully",
+        "task": new_task
     }), 201
 
 
-@app.route("/tareas/<int:id>", methods=["PUT"])
-def editar_tarea(id):
-    tareas = leer_tareas()
-    datos = request.get_json()
+@app.route("/tasks/<int:task_id>", methods=["PUT"])
+def update_task(task_id):
+    tasks = read_tasks()
+    data = request.get_json()
 
-    if not datos:
-        return jsonify({"error": "Debe enviar datos en formato JSON"}), 400
+    if not data:
+        return jsonify({"error": "Data must be sent in JSON format"}), 400
 
-    for tarea in tareas:
-        if tarea["id"] == id:
+    for task in tasks:
+        if task["id"] == task_id:
 
-            if "titulo" in datos:
-                if not datos["titulo"]:
-                    return jsonify({"error": "El título no puede estar vacío"}), 400
-                tarea["titulo"] = datos["titulo"]
+            if "title" in data:
+                if not data["title"]:
+                    return jsonify({"error": "Task title cannot be empty"}), 400
+                task["title"] = data["title"]
 
-            if "descripcion" in datos:
-                if not datos["descripcion"]:
-                    return jsonify({"error": "La descripción no puede estar vacía"}), 400
-                tarea["descripcion"] = datos["descripcion"]
+            if "description" in data:
+                if not data["description"]:
+                    return jsonify({"error": "Task description cannot be empty"}), 400
+                task["description"] = data["description"]
 
-            if "estado" in datos:
-                if not datos["estado"]:
-                    return jsonify({"error": "El estado no puede estar vacío"}), 400
+            if "status" in data:
+                if not data["status"]:
+                    return jsonify({"error": "Task status cannot be empty"}), 400
 
-                if datos["estado"] not in ESTADOS:
-                    return jsonify({"error": "Estado inválido"}), 400
+                if data["status"] not in VALID_STATUSES:
+                    return jsonify({"error": "Invalid status"}), 400
 
-                tarea["estado"] = datos["estado"]
+                task["status"] = data["status"]
 
-            guardar_tareas(tareas)
+            save_tasks(tasks)
 
             return jsonify({
-                "mensaje": "Tarea actualizada correctamente",
-                "tarea": tarea
+                "message": "Task updated successfully",
+                "task": task
             }), 200
 
-    return jsonify({"error": "Tarea no encontrada"}), 404
+    return jsonify({"error": "Task not found"}), 404
 
 
-@app.route("/tareas/<int:id>", methods=["DELETE"])
-def eliminar_tarea(id):
-    tareas = leer_tareas()
+@app.route("/tasks/<int:task_id>", methods=["DELETE"])
+def delete_task(task_id):
+    tasks = read_tasks()
 
-    for tarea in tareas:
-        if tarea["id"] == id:
-            tareas.remove(tarea)
-            guardar_tareas(tareas)
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+            save_tasks(tasks)
 
-            return jsonify({"mensaje": "Tarea eliminada correctamente"}), 200
+            return jsonify({
+                "message": "Task deleted successfully"
+            }), 200
 
-    return jsonify({"error": "Tarea no encontrada"}), 404
+    return jsonify({"error": "Task not found"}), 404
 
 
 if __name__ == "__main__":
