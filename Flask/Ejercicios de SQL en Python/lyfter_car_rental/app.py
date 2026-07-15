@@ -31,6 +31,16 @@ VALID_RENTAL_STATUSES = [
     "cancelled",
 ]
 
+# Los estados iniciales se derivan de VALID_RENTAL_STATUSES.
+INITIAL_RENTAL_STATUSES = VALID_RENTAL_STATUSES[:2]
+
+RENTAL_STATUS_TRANSITIONS = {
+    "reserved": ["active", "cancelled"],
+    "active": ["completed", "cancelled"],
+    "completed": [],
+    "cancelled": [],
+}
+
 
 # ---------------------------------------------------------
 # ALLOWED FILTERS
@@ -424,7 +434,6 @@ def create_car():
         "brand",
         "model",
         "manufacturing_year",
-        "car_status",
     ]
 
     missing_fields = [
@@ -444,10 +453,14 @@ def create_car():
             "error": "manufacturing_year must be an integer."
         }), 400
 
-    if data["car_status"] not in VALID_CAR_STATUSES:
+    if (
+        "car_status" in data
+        and data["car_status"] != "available"
+    ):
         return jsonify({
-            "error": "Invalid car status.",
-            "valid_statuses": VALID_CAR_STATUSES,
+            "error": (
+                "A new car must have available as its initial status."
+            )
         }), 400
 
     connection = None
@@ -464,7 +477,7 @@ def create_car():
                     manufacturing_year,
                     car_status
                 )
-                VALUES (%s, %s, %s, %s)
+                VALUES (%s, %s, %s, 'available')
                 RETURNING
                     id,
                     brand,
@@ -476,7 +489,6 @@ def create_car():
                     data["brand"],
                     data["model"],
                     data["manufacturing_year"],
-                    data["car_status"],
                 ),
             )
 
@@ -659,12 +671,10 @@ def create_rental():
 
     rental_status = data.get("rental_status", "active")
 
-    if rental_status not in ["reserved", "active"]:
+    if rental_status not in INITIAL_RENTAL_STATUSES:
         return jsonify({
-            "error": (
-                "A new rental can only have the status "
-                "reserved or active."
-            )
+            "error": "Invalid initial rental status.",
+            "valid_initial_statuses": INITIAL_RENTAL_STATUSES,
         }), 400
 
     connection = None
@@ -892,14 +902,22 @@ def update_rental_status(rental_id):
                     "error": "Rental not found."
                 }), 404
 
-            if rental["rental_status"] in ["completed", "cancelled"]:
+            current_status = rental["rental_status"]
+
+            allowed_transitions = RENTAL_STATUS_TRANSITIONS.get(
+                current_status,
+                [],
+            )
+
+            if new_status not in allowed_transitions:
                 connection.rollback()
 
                 return jsonify({
                     "error": (
-                        "A completed or cancelled rental "
-                        "cannot be reopened or modified."
-                    )
+                        f"Cannot change rental status from "
+                        f"{current_status} to {new_status}."
+                    ),
+                    "allowed_transitions": allowed_transitions,
                 }), 409
 
             cursor.execute(
@@ -929,7 +947,7 @@ def update_rental_status(rental_id):
                     (rental["car_id"],),
                 )
 
-            if new_status in ["reserved", "active"]:
+            if new_status == "active":
                 cursor.execute(
                     """
                     UPDATE lyfter_car_rental.cars
