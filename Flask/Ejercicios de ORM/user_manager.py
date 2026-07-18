@@ -10,6 +10,15 @@ class UserManager:
         session = SessionLocal()
 
         try:
+            # Verificar si ya existe un usuario con ese correo
+            existing_user = session.scalar(
+                select(User).where(User.email == email)
+            )
+
+            if existing_user is not None:
+                print(f"Ya existe un usuario con el correo {email}.")
+                return None
+
             user = User(
                 name=name,
                 email=email
@@ -22,6 +31,11 @@ class UserManager:
             print(f"Usuario creado con ID {user.id}")
 
             return user
+
+        except Exception as error:
+            session.rollback()
+            print(f"No fue posible crear el usuario: {error}")
+            return None
 
         finally:
             session.close()
@@ -49,12 +63,28 @@ class UserManager:
                 print("Usuario no encontrado.")
                 return
 
+            # Verificar que el nuevo correo no pertenezca a otro usuario
+            existing_user = session.scalar(
+                select(User).where(
+                    User.email == email,
+                    User.id != user_id
+                )
+            )
+
+            if existing_user is not None:
+                print(f"Ya existe otro usuario con el correo {email}.")
+                return
+
             user.name = name
             user.email = email
 
             session.commit()
 
             print("Usuario actualizado.")
+
+        except Exception as error:
+            session.rollback()
+            print(f"No fue posible actualizar el usuario: {error}")
 
         finally:
             session.close()
@@ -73,6 +103,10 @@ class UserManager:
             session.commit()
 
             print("Usuario eliminado.")
+
+        except Exception as error:
+            session.rollback()
+            print(f"No fue posible eliminar el usuario: {error}")
 
         finally:
             session.close()
