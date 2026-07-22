@@ -8,7 +8,7 @@ from auth import authenticate_user, create_user, get_user_by_username
 from authorization import admin_required, login_required
 from database import Base, SessionLocal, engine
 from invoice_service import get_all_invoices, get_user_invoices
-from jwt_manager import JWTManager
+from jwt_manager import jwt_manager
 from models import Invoice, InvoiceItem, Product, User
 from product_service import (
     create_product,
@@ -24,11 +24,6 @@ from purchase_service import (
 )
 
 app = Flask(__name__)
-
-jwt_manager = JWTManager(
-    "private_key.pem",
-    "public_key.pem",
-)
 
 
 def create_missing_tables() -> None:

@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import jwt
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 class JWTManager:
@@ -31,3 +35,9 @@ class JWTManager:
             self.public_key,
             algorithms=["RS256"],
         )
+
+
+jwt_manager = JWTManager(
+    private_key_path=str(BASE_DIR / "private_key.pem"),
+    public_key_path=str(BASE_DIR / "public_key.pem"),
+)

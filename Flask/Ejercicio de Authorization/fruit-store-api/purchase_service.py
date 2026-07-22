@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from invoice_service import create_invoice
@@ -20,7 +21,13 @@ def purchase_product(
     product_id: int,
     quantity: int,
 ):
-    product = db.get(Product, product_id)
+    statement = (
+        select(Product)
+        .where(Product.id == product_id)
+        .with_for_update()
+    )
+
+    product = db.scalar(statement)
 
     if product is None:
         raise ProductNotFoundError("Product not found.")
@@ -51,7 +58,6 @@ def purchase_product(
     db.add(invoice_item)
     db.commit()
 
-    # Volvemos a cargar la factura antes de devolverla.
     db.refresh(invoice)
 
     return invoice

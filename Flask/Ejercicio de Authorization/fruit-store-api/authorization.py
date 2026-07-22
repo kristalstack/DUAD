@@ -1,17 +1,11 @@
 from functools import wraps
 
 import jwt
-from flask import g, jsonify, request
+from flask import current_app, g, jsonify, request
 
 from auth import get_user_by_id
 from database import SessionLocal
-from jwt_manager import JWTManager
-
-
-jwt_manager = JWTManager(
-    "private_key.pem",
-    "public_key.pem",
-)
+from jwt_manager import jwt_manager
 
 
 def get_bearer_token() -> str | None:
@@ -83,15 +77,16 @@ def login_required(route_function):
                     }
                 ), 401
 
-            # Guardamos los datos para que la ruta pueda utilizarlos.
             g.current_user_id = user.id
             g.current_username = user.username
             g.current_user_role = user.role
 
             return route_function(*args, **kwargs)
 
-        except Exception as error:
-            print(error)
+        except Exception:
+            current_app.logger.exception(
+                "An unexpected error occurred while authenticating the user."
+            )
 
             return jsonify(
                 {
