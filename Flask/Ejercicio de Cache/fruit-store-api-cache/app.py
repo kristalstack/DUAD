@@ -2,7 +2,6 @@ from datetime import date
 from decimal import Decimal, InvalidOperation
 
 from flask import Flask, g, jsonify, request
-from redis.exceptions import RedisError
 from sqlalchemy.exc import IntegrityError
 
 from auth import authenticate_user, create_user, get_user_by_username
@@ -10,7 +9,7 @@ from authorization import admin_required, login_required
 from cache_service import (
     get_product_cache,
     get_products_cache,
-    invalidate_product_cache,
+    invalidate_product_and_list_cache,
     invalidate_products_cache,
     set_product_cache,
     set_products_cache,
@@ -360,12 +359,7 @@ def list_products():
     db = SessionLocal()
 
     try:
-        try:
-            cached_products = get_products_cache()
-
-        except RedisError as error:
-            app.logger.exception(error)
-            cached_products = None
+        cached_products = get_products_cache()
 
         if cached_products is not None:
             return jsonify(
@@ -382,11 +376,7 @@ def list_products():
             for product in products
         ]
 
-        try:
-            set_products_cache(products_data)
-
-        except RedisError as error:
-            app.logger.exception(error)
+        set_products_cache(products_data)
 
         return jsonify(
             {
@@ -412,12 +402,7 @@ def get_product(product_id: int):
     db = SessionLocal()
 
     try:
-        try:
-            cached_product = get_product_cache(product_id)
-
-        except RedisError as error:
-            app.logger.exception(error)
-            cached_product = None
+        cached_product = get_product_cache(product_id)
 
         if cached_product is not None:
             return jsonify(
@@ -439,11 +424,7 @@ def get_product(product_id: int):
 
         product_data = product.to_dict()
 
-        try:
-            set_product_cache(product_data)
-
-        except RedisError as error:
-            app.logger.exception(error)
+        set_product_cache(product_data)
 
         return jsonify(
             {
@@ -481,11 +462,7 @@ def add_product():
             **validated_data,
         )
 
-        try:
-            invalidate_products_cache()
-
-        except RedisError as error:
-            app.logger.exception(error)
+        invalidate_products_cache()
 
         return jsonify(
             {
@@ -535,12 +512,7 @@ def edit_product(product_id: int):
             **validated_data,
         )
 
-        try:
-            invalidate_product_cache(product_id)
-            invalidate_products_cache()
-
-        except RedisError as error:
-            app.logger.exception(error)
+        invalidate_product_and_list_cache(product_id)
 
         return jsonify(
             {
@@ -582,12 +554,7 @@ def remove_product(product_id: int):
             product=product,
         )
 
-        try:
-            invalidate_product_cache(product_id)
-            invalidate_products_cache()
-
-        except RedisError as error:
-            app.logger.exception(error)
+        invalidate_product_and_list_cache(product_id)
 
         return jsonify(
             {"message": "Product deleted successfully."}
@@ -639,14 +606,7 @@ def purchase():
             quantity=validated_data["quantity"],
         )
 
-        # La compra modifica el inventario del producto.
-        # Por eso también invalidamos sus datos almacenados.
-        try:
-            invalidate_product_cache(product_id)
-            invalidate_products_cache()
-
-        except RedisError as error:
-            app.logger.exception(error)
+        invalidate_product_and_list_cache(product_id)
 
         return jsonify(
             {
