@@ -1,4 +1,5 @@
 from flask import Blueprint, g, jsonify
+from sqlalchemy.orm import selectinload
 
 from ..cache_utils import invoice_key, invalidate_invoice, invalidate_products
 from ..extensions import cache, db
@@ -12,7 +13,14 @@ invoices_bp = Blueprint("invoices", __name__)
 @invoices_bp.get("")
 @auth_required()
 def list_invoices():
-    stmt = db.select(Invoice).order_by(Invoice.created_at.desc())
+    stmt = (
+        db.select(Invoice)
+        .options(
+            selectinload(Invoice.items),
+            selectinload(Invoice.returns).selectinload(Return.items),
+        )
+        .order_by(Invoice.created_at.desc())
+    )
     if g.current_user.role != "admin":
         stmt = stmt.where(Invoice.user_id == g.current_user.id)
     return jsonify(invoices=[invoice.to_dict() for invoice in db.session.scalars(stmt).unique()])

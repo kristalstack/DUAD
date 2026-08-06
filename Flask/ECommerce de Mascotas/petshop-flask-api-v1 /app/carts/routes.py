@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from flask import Blueprint, g, jsonify
+from sqlalchemy.orm import selectinload
 
 from ..cache_utils import invalidate_products
 from ..extensions import db
@@ -23,7 +24,11 @@ def get_owned_cart(cart_id):
 @carts_bp.get("")
 @auth_required()
 def list_carts():
-    stmt = db.select(Cart).order_by(Cart.updated_at.desc())
+    stmt = (
+        db.select(Cart)
+        .options(selectinload(Cart.items).selectinload(CartItem.product))
+        .order_by(Cart.updated_at.desc())
+    )
     if g.current_user.role != "admin":
         stmt = stmt.where(Cart.user_id == g.current_user.id)
     return jsonify(carts=[c.to_dict() for c in db.session.scalars(stmt).unique()])
@@ -149,4 +154,3 @@ def checkout(cart_id):
     for product_id in product_ids:
         invalidate_products(product_id)
     return jsonify(invoice=invoice.to_dict()), 201
-

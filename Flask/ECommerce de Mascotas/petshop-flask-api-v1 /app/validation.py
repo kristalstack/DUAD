@@ -30,3 +30,11 @@ def nonnegative_money(value):
         raise ValueError("price no puede ser negativo")
     return result
 
+
+def country_code(value):
+    if not isinstance(value, str):
+        raise ValueError("country debe ser un código de país de 2 letras")
+    result = value.strip().upper()
+    if len(result) != 2 or not result.isalpha():
+        raise ValueError("country debe ser un código de país de 2 letras")
+    return result

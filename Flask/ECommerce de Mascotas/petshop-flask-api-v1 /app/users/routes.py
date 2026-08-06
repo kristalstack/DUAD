@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from ..extensions import db
 from ..models import Address, User
 from ..security import auth_required, owns_or_admin
-from ..validation import require_json
+from ..validation import country_code, require_json
 
 users_bp = Blueprint("users", __name__)
 
@@ -85,7 +85,17 @@ def create_address(user_id):
     data, error = require_json(fields)
     if error:
         return jsonify(error=error), 400
-    address = Address(user_id=user_id, **{k: data[k] for k in fields}, line2=data.get("line2"), postal_code=data.get("postal_code"), country=data.get("country", "CR"))
+    try:
+        country = country_code(data.get("country", "CR"))
+    except ValueError as exc:
+        return jsonify(error=str(exc)), 400
+    address = Address(
+        user_id=user_id,
+        **{k: data[k] for k in fields},
+        line2=data.get("line2"),
+        postal_code=data.get("postal_code"),
+        country=country,
+    )
     db.session.add(address)
     db.session.commit()
     return jsonify(address=address.to_dict()), 201
@@ -102,7 +112,12 @@ def update_address(user_id, address_id):
     data, error = require_json()
     if error:
         return jsonify(error=error), 400
-    for field in ("recipient", "line1", "line2", "city", "province", "postal_code", "country"):
+    if "country" in data:
+        try:
+            address.country = country_code(data["country"])
+        except ValueError as exc:
+            return jsonify(error=str(exc)), 400
+    for field in ("recipient", "line1", "line2", "city", "province", "postal_code"):
         if field in data:
             setattr(address, field, data[field])
     db.session.commit()
@@ -120,4 +135,3 @@ def delete_address(user_id, address_id):
     db.session.delete(address)
     db.session.commit()
     return "", 204
-
