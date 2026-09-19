@@ -1,0 +1,340 @@
+/* RESET BÁSICO */
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* PÁGINA */
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background-color: #eeeeee;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222222;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+
+.formulario {
+  width: 1000px;
+
+  margin: 40px auto;
+  padding: 40px;
+
+  background-color: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ENCABEZADO */
+
+.encabezado {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 15px;
+}
+
+h1 {
+  margin: 0;
+
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.instruccion {
+  margin-top: 5px;
+
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+/* FOTO */
+
+.foto {
+  width: 120px;
+  height: 140px;
+
+  border: 2px solid #555555;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  color: #777777;
+
+  font-size: 16px;
+}
+
+
+/* TÍTULOS DE SECCIÓN */
+
+h2 {
+  margin-top: 28px;
+  margin-bottom: 5px;
+
+  padding: 7px 10px;
+
+  background-color: #eeeeee;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  border-left: 6px solid #f0a85b;
+}
+
+
+/* PRIMERA FILA */
+
+.fila-superior {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+}
+
+
+/* GRIDS */
+
+.grid-dos {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+}
+
+.grid-tres {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+}
+
+.grid-cuatro {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+}
+
+.grid-cinco {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+}
+
+
+/* CAMPOS */
+
+.campo {
+  min-height: 65px;
+
+  padding: 7px;
+
+  border-right: 2px solid #555555;
+  border-bottom: 2px solid #555555;
+}
+
+
+/* ETIQUETAS */
+
+.campo label,
+.campo span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+/* INPUTS */
+
+.campo input[type="text"],
+.campo input[type="tel"],
+.campo input[type="number"],
+.campo input[type="date"],
+.campo select {
+  width: 100%;
+
+  padding: 7px;
+
+  border: none;
+
+  background-color: #ffd5a8;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+
+/* EFECTO AL HACER CLIC EN INPUT */
+
+.campo input:focus,
+.campo select:focus {
+  background-color: #ffe6cc;
+}
+
+
+/* OPCIONES */
+
+.opciones {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px 15px;
+}
+
+.opciones label {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin: 0;
+
+  font-weight: normal;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 4px;
+
+  accent-color: #e89b49;
+}
+
+
+/* DATOS FAMILIARES */
+
+.tabla-familia {
+  display: grid;
+
+  grid-template-columns: 2fr 0.7fr 2fr 2fr;
+
+  border-left: 2px solid #555555;
+}
+
+.tabla-familia:first-of-type {
+  border-top: 2px solid #555555;
+}
+
+
+/* ESCOLARIDAD */
+
+.tabla-escolaridad {
+  display: grid;
+
+  grid-template-columns: 2fr 2fr 0.7fr 0.7fr 1.3fr;
+
+  border-left: 2px solid #555555;
+}
+
+
+/* ENCABEZADOS DE TABLAS */
+
+.encabezado-tabla {
+  background-color: #dddddd;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  text-align: center;
+
+  border-top: 2px solid #555555;
+}
+
+.encabezado-tabla div {
+  padding: 8px;
+
+  border-right: 2px solid #555555;
+  border-bottom: 2px solid #555555;
+}
+
+
+/* BOTÓN */
+
+.contenedor-boton {
+  margin-top: 30px;
+
+  text-align: center;
+}
+
+button {
+  padding: 12px 35px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: #e89b49;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #cf8134;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+
+  .formulario {
+    width: 95%;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .grid-dos,
+  .grid-tres,
+  .grid-cuatro,
+  .grid-cinco,
+  .fila-superior,
+  .tabla-familia,
+  .tabla-escolaridad {
+    grid-template-columns: 1fr;
+  }
+
+  .encabezado {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .formulario {
+    padding: 20px;
+  }
+
+}

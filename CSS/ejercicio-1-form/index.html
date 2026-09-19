@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Solicitud de empleo</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="formulario">
+
+    <!-- ENCABEZADO -->
+
+    <header class="encabezado">
+
+      <div>
+        <h1>Solicitud de empleo</h1>
+
+        <p class="instruccion">
+          Llenar la solicitud con letra legible y de molde
+        </p>
+      </div>
+
+      <div class="foto">
+        Foto
+      </div>
+
+    </header>
+
+
+    <!-- INFORMACIÓN DEL PUESTO -->
+
+    <section class="fila-superior">
+
+      <div class="campo">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha" name="fecha">
+      </div>
+
+      <div class="campo">
+        <label for="puesto">Puesto solicitado</label>
+        <input type="text" id="puesto" name="puesto">
+      </div>
+
+      <div class="campo">
+        <label for="sueldo">Sueldo deseado</label>
+        <input type="text" id="sueldo" name="sueldo">
+      </div>
+
+    </section>
+
+
+    <!-- DATOS PERSONALES -->
+
+    <section>
+
+      <h2>Datos personales</h2>
+
+      <div class="grid-cuatro">
+
+        <div class="campo">
+          <label for="apellido-paterno">Apellido paterno</label>
+          <input type="text" id="apellido-paterno" name="apellido-paterno">
+        </div>
+
+        <div class="campo">
+          <label for="apellido-materno">Apellido materno</label>
+          <input type="text" id="apellido-materno" name="apellido-materno">
+        </div>
+
+        <div class="campo">
+          <label for="nombres">Nombres</label>
+          <input type="text" id="nombres" name="nombres">
+        </div>
+
+        <div class="campo">
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" name="edad">
+        </div>
+
+      </div>
+
+
+      <div class="grid-cinco">
+
+        <div class="campo">
+          <label for="domicilio">Domicilio</label>
+          <input type="text" id="domicilio" name="domicilio">
+        </div>
+
+        <div class="campo">
+          <label for="colonia">Colonia</label>
+          <input type="text" id="colonia" name="colonia">
+        </div>
+
+        <div class="campo">
+          <label for="codigo-postal">Código postal</label>
+          <input type="text" id="codigo-postal" name="codigo-postal">
+        </div>
+
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono">
+        </div>
+
+        <div class="campo">
+          <label for="movil">Móvil</label>
+          <input type="tel" id="movil" name="movil">
+        </div>
+
+      </div>
+
+
+      <div class="grid-cuatro">
+
+        <div class="campo">
+          <label for="nacimiento">Lugar de nacimiento</label>
+          <input type="text" id="nacimiento" name="nacimiento">
+        </div>
+
+        <div class="campo">
+          <label for="fecha-nacimiento">Fecha de nacimiento</label>
+          <input type="date" id="fecha-nacimiento" name="fecha-nacimiento">
+        </div>
+
+        <div class="campo">
+          <label for="nacionalidad">Nacionalidad</label>
+          <input type="text" id="nacionalidad" name="nacionalidad">
+        </div>
+
+        <div class="campo">
+
+          <span>Sexo</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="radio" name="sexo" value="masculino">
+              Masculino
+            </label>
+
+            <label>
+              <input type="radio" name="sexo" value="femenino">
+              Femenino
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid-dos">
+
+        <div class="campo">
+
+          <span>Vive con:</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="checkbox" name="vive-con" value="padres">
+              Sus padres
+            </label>
+
+            <label>
+              <input type="checkbox" name="vive-con" value="familiares">
+              Familiares
+            </label>
+
+            <label>
+              <input type="checkbox" name="vive-con" value="amigos">
+              Amigos
+            </label>
+
+            <label>
+              <input type="checkbox" name="vive-con" value="solo">
+              Solo
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="grid-dos">
+
+          <div class="campo">
+            <label for="estatura">Estatura</label>
+            <input type="text" id="estatura" name="estatura">
+          </div>
+
+          <div class="campo">
+            <label for="peso">Peso</label>
+            <input type="text" id="peso" name="peso">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid-dos">
+
+        <div class="campo">
+
+          <span>Personas que dependen de usted</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="checkbox" name="dependientes" value="hijos">
+              Hijos
+            </label>
+
+            <label>
+              <input type="checkbox" name="dependientes" value="conyuge">
+              Cónyuge
+            </label>
+
+            <label>
+              <input type="checkbox" name="dependientes" value="padres">
+              Padres
+            </label>
+
+            <label>
+              <input type="checkbox" name="dependientes" value="otros">
+              Otros
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="campo">
+
+          <span>Estado civil</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="radio" name="estado-civil" value="soltero">
+              Soltero
+            </label>
+
+            <label>
+              <input type="radio" name="estado-civil" value="casado">
+              Casado
+            </label>
+
+            <label>
+              <input type="radio" name="estado-civil" value="otro">
+              Otro
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DOCUMENTACIÓN -->
+
+    <section>
+
+      <h2>Documentación</h2>
+
+      <div class="grid-tres">
+
+        <div class="campo">
+          <label for="curp">Número de CURP</label>
+          <input type="text" id="curp" name="curp">
+        </div>
+
+        <div class="campo">
+          <label for="cartilla">
+            Número de Cartilla de Servicio Militar
+          </label>
+          <input type="text" id="cartilla" name="cartilla">
+        </div>
+
+        <div class="campo">
+          <label for="pasaporte">Número de Pasaporte</label>
+          <input type="text" id="pasaporte" name="pasaporte">
+        </div>
+
+      </div>
+
+
+      <div class="grid-tres">
+
+        <div class="campo">
+
+          <span>Licencia de manejo</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="radio" name="licencia" value="si">
+              Sí
+            </label>
+
+            <label>
+              <input type="radio" name="licencia" value="no">
+              No
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="campo">
+          <label for="tipo-licencia">
+            Tipo de licencia y número
+          </label>
+          <input type="text" id="tipo-licencia" name="tipo-licencia">
+        </div>
+
+
+        <div class="campo">
+          <label for="documentacion-extranjero">
+            Documentación para trabajar en el país
+          </label>
+          <input
+            type="text"
+            id="documentacion-extranjero"
+            name="documentacion-extranjero"
+          >
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HÁBITOS PERSONALES -->
+
+    <section>
+
+      <h2>Hábitos personales</h2>
+
+      <div class="grid-dos">
+
+        <div class="campo">
+
+          <span>¿Cómo considera su estado de salud?</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="radio" name="salud" value="buena">
+              Buena
+            </label>
+
+            <label>
+              <input type="radio" name="salud" value="regular">
+              Regular
+            </label>
+
+            <label>
+              <input type="radio" name="salud" value="mala">
+              Mala
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="campo">
+
+          <span>¿Padece alguna enfermedad crónica?</span>
+
+          <div class="opciones">
+
+            <label>
+              <input type="radio" name="enfermedad" value="no">
+              No
+            </label>
+
+            <label>
+              <input type="radio" name="enfermedad" value="si">
+              Sí
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid-dos">
+
+        <div class="campo">
+          <label for="deporte">
+            ¿Practica algún deporte?
+          </label>
+          <input type="text" id="deporte" name="deporte">
+        </div>
+
+
+        <div class="campo">
+          <label for="pasatiempo">
+            ¿Pasatiempo favorito?
+          </label>
+          <input type="text" id="pasatiempo" name="pasatiempo">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DATOS FAMILIARES -->
+
+    <section>
+
+      <h2>Datos familiares</h2>
+
+      <div class="tabla-familia encabezado-tabla">
+
+        <div>Nombre</div>
+        <div>Vive</div>
+        <div>Domicilio</div>
+        <div>Ocupación</div>
+
+      </div>
+
+
+      <div class="tabla-familia">
+
+        <div class="campo">
+          <label for="padre">Padre</label>
+          <input type="text" id="padre" name="padre">
+        </div>
+
+        <div class="campo">
+          <select name="padre-vive">
+            <option>Sí</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <input type="text" name="padre-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="padre-ocupacion">
+        </div>
+
+      </div>
+
+
+      <div class="tabla-familia">
+
+        <div class="campo">
+          <label for="madre">Madre</label>
+          <input type="text" id="madre" name="madre">
+        </div>
+
+        <div class="campo">
+          <select name="madre-vive">
+            <option>Sí</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <input type="text" name="madre-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="madre-ocupacion">
+        </div>
+
+      </div>
+
+
+      <div class="tabla-familia">
+
+        <div class="campo">
+          <label for="pareja">Cónyuge</label>
+          <input type="text" id="pareja" name="pareja">
+        </div>
+
+        <div class="campo">
+          <select name="pareja-vive">
+            <option>Sí</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <input type="text" name="pareja-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="pareja-ocupacion">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ESCOLARIDAD -->
+
+    <section>
+
+      <h2>Escolaridad</h2>
+
+      <div class="tabla-escolaridad encabezado-tabla">
+
+        <div>Nombre de la escuela</div>
+        <div>Domicilio</div>
+        <div>De</div>
+        <div>A</div>
+        <div>Certificado</div>
+
+      </div>
+
+
+      <div class="tabla-escolaridad">
+
+        <div class="campo">
+          <label for="primaria">Primaria</label>
+          <input type="text" id="primaria" name="primaria">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="primaria-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="primaria-de">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="primaria-a">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="primaria-certificado">
+        </div>
+
+      </div>
+
+
+      <div class="tabla-escolaridad">
+
+        <div class="campo">
+          <label for="secundaria">Secundaria</label>
+          <input type="text" id="secundaria" name="secundaria">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="secundaria-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="secundaria-de">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="secundaria-a">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="secundaria-certificado">
+        </div>
+
+      </div>
+
+
+      <div class="tabla-escolaridad">
+
+        <div class="campo">
+          <label for="preparatoria">Preparatoria</label>
+          <input type="text" id="preparatoria" name="preparatoria">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="preparatoria-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="preparatoria-de">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="preparatoria-a">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="preparatoria-certificado">
+        </div>
+
+      </div>
+
+
+      <div class="tabla-escolaridad">
+
+        <div class="campo">
+          <label for="universidad">Universidad</label>
+          <input type="text" id="universidad" name="universidad">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="universidad-domicilio">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="universidad-de">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="universidad-a">
+        </div>
+
+        <div class="campo">
+          <input type="text" name="universidad-certificado">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REFERENCIAS -->
+
+    <section>
+
+      <h2>Referencias personales</h2>
+
+      <div class="grid-tres">
+
+        <div class="campo">
+          <label for="referencia1">Nombre</label>
+          <input type="text" id="referencia1" name="referencia1">
+        </div>
+
+        <div class="campo">
+          <label for="referencia1-telefono">Teléfono</label>
+          <input type="tel" id="referencia1-telefono" name="referencia1-telefono">
+        </div>
+
+        <div class="campo">
+          <label for="referencia1-tiempo">Tiempo de conocerlo</label>
+          <input type="text" id="referencia1-tiempo" name="referencia1-tiempo">
+        </div>
+
+      </div>
+
+
+      <div class="grid-tres">
+
+        <div class="campo">
+          <label for="referencia2">Nombre</label>
+          <input type="text" id="referencia2" name="referencia2">
+        </div>
+
+        <div class="campo">
+          <label for="referencia2-telefono">Teléfono</label>
+          <input type="tel" id="referencia2-telefono" name="referencia2-telefono">
+        </div>
+
+        <div class="campo">
+          <label for="referencia2-tiempo">Tiempo de conocerlo</label>
+          <input type="text" id="referencia2-tiempo" name="referencia2-tiempo">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOTÓN -->
+
+    <div class="contenedor-boton">
+
+      <button type="submit">
+        Enviar solicitud
+      </button>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

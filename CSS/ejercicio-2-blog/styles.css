@@ -1,0 +1,199 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 60px 20px;
+
+  background-color: #dedeea;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #222222;
+}
+
+
+/* TARJETA PRINCIPAL */
+
+.blog-card {
+  width: 100%;
+  max-width: 760px;
+
+  margin: 0 auto;
+
+  padding: 35px 45px;
+
+  background-color: #ffffff;
+
+  border-radius: 28px;
+}
+
+
+/* ENCABEZADO */
+
+.article-header {
+  text-align: center;
+}
+
+.article-header h1 {
+  margin: 0 0 12px;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 42px;
+  line-height: 1.1;
+
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0 auto 18px;
+
+  max-width: 650px;
+
+  font-size: 18px;
+  line-height: 1.5;
+
+  color: #555555;
+}
+
+.author {
+  margin: 0 0 14px;
+
+  font-size: 12px;
+
+  color: #666666;
+}
+
+
+/* ICONOS */
+
+.social-icons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+
+  color: #8a8a8a;
+
+  font-size: 14px;
+}
+
+
+/* IMAGEN PRINCIPAL */
+
+.hero-image {
+  display: block;
+
+  width: 100%;
+
+  margin: 0 auto 22px;
+
+  border-radius: 8px;
+}
+
+
+/* CONTENIDO DEL ARTÍCULO */
+
+.article-content {
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 16px;
+  line-height: 1.65;
+
+  color: #444444;
+}
+
+.article-content p {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  text-align: justify;
+}
+
+
+/* CTA */
+
+.cta-box {
+  width: 48%;
+
+  float: right;
+
+  margin: 5px 0 18px 25px;
+
+  padding: 22px;
+
+  background-color: #ffc066;
+
+  border-radius: 5px;
+
+  text-align: center;
+}
+
+.cta-box h2 {
+  margin-top: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 20px;
+  line-height: 1.25;
+
+  color: #222222;
+}
+
+.cta-box button {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 4px;
+
+  background-color: #222222;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.cta-box button:hover {
+  background-color: #444444;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+  body {
+    padding: 20px 10px;
+  }
+
+  .blog-card {
+    padding: 25px 20px;
+
+    border-radius: 18px;
+  }
+
+  .article-header h1 {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .cta-box {
+    width: 100%;
+
+    float: none;
+
+    margin: 20px 0;
+  }
+
+}

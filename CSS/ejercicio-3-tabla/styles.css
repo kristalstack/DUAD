@@ -1,0 +1,222 @@
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  padding: 60px 20px;
+
+  background-color: #dedeea;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #111111;
+}
+
+
+/* CONTENEDOR */
+
+.contenedor-tabla {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  padding: 35px 45px;
+
+  background-color: #f7f7f7;
+
+  border-radius: 28px;
+}
+
+
+/* TÍTULO */
+
+.titulo {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.titulo h1 {
+  margin: 0;
+
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.titulo p {
+  margin: 0;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  font-weight: bold;
+}
+
+
+/* TABLA */
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background-color: white;
+}
+
+
+/* CABECERA */
+
+thead {
+  background-color: #1f4fc4;
+
+  color: white;
+}
+
+th {
+  padding: 12px 10px;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  text-align: center;
+}
+
+.ranking-header {
+  text-align: left;
+}
+
+
+/* FILAS */
+
+tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+
+/* RANKING */
+
+.ranking {
+  width: 70px;
+
+  background-color: #111219;
+
+  color: white;
+
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+/* IMAGEN */
+
+.imagen {
+  width: 100px;
+
+  padding: 0;
+}
+
+.imagen img {
+  display: block;
+
+  width: 100px;
+  height: 100px;
+
+  object-fit: cover;
+}
+
+
+/* INFORMACIÓN DE LA CANCIÓN */
+
+.cancion {
+  min-width: 250px;
+
+  padding: 18px;
+}
+
+.cancion strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 16px;
+}
+
+.cancion span {
+  display: block;
+
+  font-size: 12px;
+
+  color: #555555;
+}
+
+
+/* PREMIO */
+
+.award {
+  width: 70px;
+
+  text-align: center;
+
+  font-size: 18px;
+
+  background-color: #eeeeee;
+}
+
+
+/* NÚMEROS */
+
+.numero {
+  width: 80px;
+
+  text-align: center;
+
+  font-size: 16px;
+
+  border-left: 1px solid #e0e0e0;
+}
+
+
+/* EFECTO AL PASAR EL MOUSE */
+
+tbody tr:hover {
+  background-color: #f4f4f4;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+
+  body {
+    padding: 20px 10px;
+  }
+
+  .contenedor-tabla {
+    padding: 20px;
+
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 750px;
+  }
+
+  .titulo {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 8px;
+  }
+
+}
