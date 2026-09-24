@@ -1,0 +1,329 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #222222;
+}
+
+header {
+  width: 100%;
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  background-color: #fafafa;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #777777;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #ff6b35;
+}
+
+.search-box {
+  width: 180px;
+  padding: 10px;
+  border: 1px solid #dddddd;
+}
+
+
+/* HERO */
+
+.hero {
+  max-width: 1100px;
+  min-height: 380px;
+  margin: 45px auto;
+  padding: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #fff0e7;
+  border-radius: 8px;
+}
+
+.hero-text {
+  width: 50%;
+}
+
+.hero-text h1 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  color: #777777;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.hero-text h2 {
+  color: #ff6b35;
+  font-size: 34px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 11px 22px;
+  border: none;
+  border-radius: 5px;
+
+  background-color: #ff6b35;
+  color: white;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e85b29;
+}
+
+.hero-image {
+  width: 45%;
+  text-align: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 400px;
+  height: 260px;
+
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+/* CATALOG */
+
+.catalog {
+  max-width: 1100px;
+  margin: 0 auto 50px;
+}
+
+.catalog > h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+
+/* CARDS */
+
+.card {
+  min-height: 440px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: white;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+
+  object-fit: contain;
+
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  min-height: 45px;
+
+  color: #777777;
+  font-size: 14px;
+  line-height: 1.5;
+
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+
+  margin-bottom: 12px;
+}
+
+
+/* CONTACT */
+
+.contact {
+  max-width: 1100px;
+  margin: 40px auto;
+
+  padding: 65px;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: #fff0e7;
+
+  border-radius: 8px;
+}
+
+.contact h2 {
+  margin-bottom: 8px;
+}
+
+.contact p {
+  color: #777777;
+  margin-bottom: 10px;
+}
+
+.contact input {
+  width: 260px;
+
+  padding: 11px;
+
+  border: 1px solid #dddddd;
+}
+
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+
+  padding: 25px;
+
+  color: #aaaaaa;
+
+  font-size: 13px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 35px;
+  }
+
+  .hero-text,
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-image {
+    margin-top: 30px;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .hero {
+    margin: 25px 15px;
+    padding: 25px;
+  }
+
+  .hero-text h1 {
+    font-size: 30px;
+  }
+
+  .hero-text h2 {
+    font-size: 28px;
+  }
+
+  .catalog {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  .contact {
+    margin: 30px 15px;
+    padding: 35px 20px;
+  }
+
+  .contact input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .contact button {
+    width: 100%;
+  }
+}
