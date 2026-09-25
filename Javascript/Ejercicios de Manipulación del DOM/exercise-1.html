@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Exercise 1</title>
+</head>
+<body>
+
+    <h1>Ordered List</h1>
+
+    <button id="addButton">Add Item</button>
+    <button id="clearButton">Clear List</button>
+
+    <ol id="itemList"></ol>
+
+    <script>
+        const addButton = document.getElementById("addButton");
+        const clearButton = document.getElementById("clearButton");
+        const itemList = document.getElementById("itemList");
+
+        let itemNumber = 1;
+
+        addButton.addEventListener("click", function () {
+            const newItem = document.createElement("li");
+            newItem.textContent = "Item " + itemNumber;
+
+            itemList.appendChild(newItem);
+
+            itemNumber++;
+        });
+
+        clearButton.addEventListener("click", function () {
+            itemList.innerHTML = "";
+            itemNumber = 1;
+        });
+    </script>
+
+</body>
+</html>
