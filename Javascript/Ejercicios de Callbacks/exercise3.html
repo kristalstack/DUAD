@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 3 - Event Listener</title>
+</head>
+<body>
+
+    <h1>Change Background Color</h1>
+
+    <p id="text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </p>
+
+    <button id="button">
+        Change Color
+    </button>
+
+    <script>
+        const colors = [
+            "red",
+            "blue",
+            "green",
+            "yellow",
+            "cyan",
+            "pink"
+        ];
+
+        const paragraph = document.getElementById("text");
+        const button = document.getElementById("button");
+
+        button.addEventListener("click", function () {
+
+            const randomIndex = Math.floor(
+                Math.random() * colors.length
+            );
+
+            paragraph.style.backgroundColor =
+                colors[randomIndex];
+        });
+    </script>
+
+</body>
+</html>
