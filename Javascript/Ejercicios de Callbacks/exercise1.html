@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 1 - Callbacks</title>
+</head>
+<body>
+
+    <h1>Exercise 1: Even or Odd Number</h1>
+
+    <script>
+        function checkNumber(number, evenCallback, oddCallback) {
+            if (number % 2 === 0) {
+                evenCallback();
+            } else {
+                oddCallback();
+            }
+        }
+
+        function evenNumber() {
+            console.log("The number is even!");
+        }
+
+        function oddNumber() {
+            console.log("The number is odd!");
+        }
+
+        checkNumber(8, evenNumber, oddNumber);
+        checkNumber(5, evenNumber, oddNumber);
+    </script>
+
+</body>
+</html>
