@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <main>
+
+        <h1>My Profile</h1>
+
+        <div id="profile"></div>
+
+        <div class="buttons">
+
+            <button id="changePassword">
+                Change Password
+            </button>
+
+            <button id="logout">
+                Log Out
+            </button>
+
+        </div>
+
+    </main>
+
+    <script src="users.js"></script>
+
+    <script>
+
+        const profile = document.getElementById("profile");
+
+        async function loadProfile() {
+
+            const id = getSession();
+
+            // Redirect to login if there is no active session
+            if (!id) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+
+                const user = await getUser(id);
+                const data = user.data;
+
+                profile.innerHTML = `
+                    <div class="card">
+
+                        <h2>${data.name}</h2>
+
+                        <p>
+                            <strong>User ID:</strong>
+                            ${user.id}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            ${data.email}
+                        </p>
+
+                        <p>
+                            <strong>Age:</strong>
+                            ${data.age}
+                        </p>
+
+                        <p>
+                            <strong>City:</strong>
+                            ${data.city}
+                        </p>
+
+                    </div>
+                `;
+
+            } catch (error) {
+
+                logout();
+
+                window.location.href = "login.html";
+
+            }
+        }
+
+
+        document
+            .getElementById("logout")
+            .addEventListener("click", function() {
+
+                logout();
+
+                window.location.href = "login.html";
+
+            });
+
+
+        document
+            .getElementById("changePassword")
+            .addEventListener("click", function() {
+
+                window.location.href = "change-password.html";
+
+            });
+
+
+        loadProfile();
+
+    </script>
+
+</body>
+</html>
