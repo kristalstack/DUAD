@@ -1,116 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <main>
-
-        <h1>My Profile</h1>
+    <main class="container">
+        <h1>User Profile</h1>
 
         <div id="profile"></div>
 
-        <div class="buttons">
+        <a href="change-password.html">Change Password</a>
 
-            <button id="changePassword">
-                Change Password
-            </button>
-
-            <button id="logout">
-                Log Out
-            </button>
-
-        </div>
-
+        <button id="logoutButton">Logout</button>
     </main>
 
     <script src="users.js"></script>
 
     <script>
-
         const profile = document.getElementById("profile");
+        const logoutButton = document.getElementById("logoutButton");
 
         async function loadProfile() {
+            const userId = getSession();
 
-            const id = getSession();
-
-            // Redirect to login if there is no active session
-            if (!id) {
+            if (!userId) {
                 window.location.href = "login.html";
                 return;
             }
 
             try {
-
-                const user = await getUser(id);
+                const user = await getUser(userId);
                 const data = user.data;
 
-                profile.innerHTML = `
-                    <div class="card">
+                const card = document.createElement("div");
+                card.className = "card";
 
-                        <h2>${data.name}</h2>
+                const name = document.createElement("h2");
+                name.textContent = data.name;
 
-                        <p>
-                            <strong>User ID:</strong>
-                            ${user.id}
-                        </p>
+                const id = document.createElement("p");
+                id.textContent = `User ID: ${user.id}`;
 
-                        <p>
-                            <strong>Email:</strong>
-                            ${data.email}
-                        </p>
+                const email = document.createElement("p");
+                email.textContent = `Email: ${data.email}`;
 
-                        <p>
-                            <strong>Age:</strong>
-                            ${data.age}
-                        </p>
+                const age = document.createElement("p");
+                age.textContent = `Age: ${data.age}`;
 
-                        <p>
-                            <strong>City:</strong>
-                            ${data.city}
-                        </p>
+                const city = document.createElement("p");
+                city.textContent = `City: ${data.city}`;
 
-                    </div>
-                `;
+                card.append(name, id, email, age, city);
+                profile.appendChild(card);
 
             } catch (error) {
+                if (error.status === 404) {
+                    logout();
+                    window.location.href = "login.html";
+                    return;
+                }
 
-                logout();
-
-                window.location.href = "login.html";
-
+                profile.textContent =
+                    "The profile could not be loaded. Please try again later.";
             }
         }
 
-
-        document
-            .getElementById("logout")
-            .addEventListener("click", function() {
-
-                logout();
-
-                window.location.href = "login.html";
-
-            });
-
-
-        document
-            .getElementById("changePassword")
-            .addEventListener("click", function() {
-
-                window.location.href = "change-password.html";
-
-            });
-
+        logoutButton.addEventListener("click", () => {
+            logout();
+            window.location.href = "login.html";
+        });
 
         loadProfile();
-
     </script>
 
 </body>

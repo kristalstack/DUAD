@@ -87,7 +87,7 @@
 
                 const newUser = await createUser(user);
 
-                saveSession(newUser);
+                saveSession(newUser.id);
 
                 alert(
                     `User created successfully! Your ID is ${newUser.id}`

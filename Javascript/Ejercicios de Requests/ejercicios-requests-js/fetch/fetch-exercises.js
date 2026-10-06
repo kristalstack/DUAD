@@ -66,8 +66,12 @@ async function getObjectById(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
 
-        if (!response.ok) {
+        if (response.status === 404) {
             throw new Error("Object not found.");
+        }
+
+        if (!response.ok) {
+            throw new Error("The server could not retrieve the object.");
         }
 
         const object = await response.json();
@@ -87,7 +91,7 @@ async function getObjectById(id) {
 async function updateObject(id, newData) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -113,28 +117,34 @@ async function updateObject(id, newData) {
 }
 
 
-// Testing Exercise 1
-getAllObjects();
+// Run exercises in order
+async function runExercises() {
+    await getAllObjects();
 
+    const newItem = await createSportsItem({
+        name: "Mountain Bike",
+        data: {
+            brand: "Trek",
+            category: "Mountain Bike",
+            price: 15000,
+            color: "Black",
+            size: "Medium"
+        }
+    });
 
-// Testing Exercise 2
-createSportsItem({
-    name: "Mountain Bike",
-    data: {
+    if (!newItem) {
+        return;
+    }
+
+    await getObjectById(newItem.id);
+
+    await updateObject(newItem.id, {
         brand: "Trek",
         category: "Mountain Bike",
-        price: 15000,
-        color: "Black",
-        size: "Medium"
-    }
-});
+        price: 17000,
+        color: "Red",
+        size: "Large"
+    });
+}
 
-getObjectById("ff808181a09d98f701a10f5f091f0475");
-
-updateObject("ff808181a09d98f701a10f5f091f0475", {
-    brand: "Trek",
-    category: "Mountain Bike",
-    price: 17000,
-    color: "Red",
-    size: "Large"
-});
+runExercises();

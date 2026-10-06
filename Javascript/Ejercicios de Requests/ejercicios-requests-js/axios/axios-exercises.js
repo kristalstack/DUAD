@@ -1,15 +1,12 @@
-const axios = require("axios");
-
 const API_URL = "https://api.restful-api.dev/objects";
+
 
 // Exercise 1: Get all objects with data
 async function getAllObjects() {
     try {
         const response = await axios.get(API_URL);
 
-        const objects = response.data;
-
-        const objectsWithData = objects.filter(object => object.data);
+        const objectsWithData = response.data.filter(object => object.data);
 
         console.log("Objects with data:");
 
@@ -23,7 +20,13 @@ Data:`, object.data);
         return objectsWithData;
 
     } catch (error) {
-        console.error("Error:", error.message);
+        if (error.response) {
+            console.error(
+                `Error: The server returned status ${error.response.status}.`
+            );
+        } else {
+            console.error("Error: Could not connect to the server.");
+        }
     }
 }
 
@@ -42,7 +45,13 @@ async function createSportsItem(item) {
         return response.data;
 
     } catch (error) {
-        console.error("Error:", error.message);
+        if (error.response) {
+            console.error(
+                `Error: The server returned status ${error.response.status}.`
+            );
+        } else {
+            console.error("Error: Could not connect to the server.");
+        }
     }
 }
 
@@ -58,7 +67,17 @@ async function getObjectById(id) {
         return response.data;
 
     } catch (error) {
-        console.error("Error:", error.message);
+        if (error.response) {
+            if (error.response.status === 404) {
+                console.error("Error: Object not found.");
+            } else {
+                console.error(
+                    `Error: The server returned status ${error.response.status}.`
+                );
+            }
+        } else {
+            console.error("Error: Could not connect to the server.");
+        }
     }
 }
 
@@ -66,7 +85,7 @@ async function getObjectById(id) {
 // Exercise 4: Update an object
 async function updateObject(id, newData) {
     try {
-        const response = await axios.put(`${API_URL}/${id}`, {
+        const response = await axios.patch(`${API_URL}/${id}`, {
             data: newData
         });
 
@@ -76,34 +95,49 @@ async function updateObject(id, newData) {
         return response.data;
 
     } catch (error) {
-        console.error("Error:", error.message);
+        if (error.response) {
+            if (error.response.status === 404) {
+                console.error("Error: Object not found.");
+            } else {
+                console.error(
+                    `Error: The server returned status ${error.response.status}.`
+                );
+            }
+        } else {
+            console.error("Error: Could not connect to the server.");
+        }
     }
 }
 
 
-// Testing Exercise 1
-getAllObjects();
+// Run exercises in order
+async function runExercises() {
+    await getAllObjects();
 
-// Testing Exercise 2
-// createSportsItem({
-//     name: "Tennis Racket",
-//     data: {
-//         brand: "Wilson",
-//         category: "Tennis",
-//         price: 3500,
-//         weight: "300g",
-//         material: "Graphite"
-//     }
-// });
+    const newItem = await createSportsItem({
+        name: "Tennis Racket",
+        data: {
+            brand: "Wilson",
+            category: "Tennis",
+            price: 3500,
+            weight: "300g",
+            material: "Graphite"
+        }
+    });
 
-// Testing Exercise 3
-getObjectById("ff808181a09d98f701a10f65d5820483");
+    if (!newItem) {
+        return;
+    }
 
-// Testing Exercise 4
-updateObject("ff808181a09d98f701a10f65d5820483", {
-    brand: "Wilson",
-    category: "Tennis",
-    price: 4000,
-    weight: "310g",
-    material: "Carbon Fiber"
-});
+    await getObjectById(newItem.id);
+
+    await updateObject(newItem.id, {
+        brand: "Wilson",
+        category: "Tennis",
+        price: 4000,
+        weight: "310g",
+        material: "Carbon Fiber"
+    });
+}
+
+runExercises();
