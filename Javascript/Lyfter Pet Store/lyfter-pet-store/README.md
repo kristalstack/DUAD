@@ -4,7 +4,7 @@ Interfaz de e-commerce para la API Flask **PetShop API** del módulo anterior. D
 
 ## Requisitos
 
-- Python 3 (para servir el frontend y hacer proxy de API; no necesita dependencias extra).
+- Python 3 (para servir el frontend; no necesita dependencias extra).
 - Backend Flask PetShop funcionando en `http://127.0.0.1:5000` con PostgreSQL configurado. Consulta el README del backend para instalar dependencias, crear base de datos y administrador. Redis es opcional en la configuración del backend si no se define `REDIS_HOST`.
 
 ## Ejecución
@@ -15,9 +15,9 @@ Interfaz de e-commerce para la API Flask **PetShop API** del módulo anterior. D
    ```
 2. En otra terminal, entra en la carpeta `lyfter-pet-store` y ejecuta:
    ```bash
-   python3 serve.py
+   python3 -m http.server 5500 --bind 127.0.0.1
    ```
-3. Abre **http://127.0.0.1:8000** (no abras el HTML mediante `file://`).
+3. Abre **http://127.0.0.1:5500** (no abras el HTML mediante `file://`).
 4. Registra un usuario para probar la tienda. Para probar el panel de administración, crea un admin mediante `flask --app run.py create-admin` desde el backend e inicia sesión con esa cuenta.
 5. Desde el administrador crea productos. El catálogo muestra los productos activos del backend.
 
@@ -35,7 +35,7 @@ Interfaz de e-commerce para la API Flask **PetShop API** del módulo anterior. D
 - `styles.css`: diseño responsivo con Grid/Flexbox, unidades relativas `rem`, `%` y `vw`; sin tamaños en `px`.
 - `js/api.js`: **único módulo que realiza solicitudes HTTP**, maneja errores, autorización JWT y almacenamiento de sesión.
 - `js/app.js`: navegación hash, DOM, formularios, vistas y eventos.
-- `serve.py`: servidor estático y proxy local de `/api` a Flask. Evita problemas de CORS sin modificar el backend original.
+- `serve.py`: servidor estático local para el frontend. La comunicación con Flask se realiza directamente mediante CORS, configurado en el backend.
 - `localStorage`: sesión JWT y referencia del carrito abierto por usuario. Los ítems se persisten realmente en la API, de modo que el carrito también sobrevive a recargas. La sesión se limpia al cerrar sesión.
 - Validación cliente: email con Regex, contraseña mínima de 8 caracteres, campos obligatorios, precios no negativos, cantidades enteras y límites de stock. El backend valida de nuevo.
 - Los errores HTTP se muestran en pantalla; el catálogo vacío tiene estado específico.
@@ -44,7 +44,7 @@ Interfaz de e-commerce para la API Flask **PetShop API** del módulo anterior. D
 
 ## Integración con API
 
-Base: `/api` (en el frontend); `serve.py` envía solicitudes a `http://127.0.0.1:5000/api`.
+Base: `http://127.0.0.1:5000/api`, configurada en `js/api.js`. El frontend realiza solicitudes directamente al backend Flask, que tiene CORS habilitado para `http://localhost:5500` y `http://127.0.0.1:5500`.
 
 | Acción | Endpoint |
 | --- | --- |
