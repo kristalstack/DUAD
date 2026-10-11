@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <main class="container">
+        <h1>User Profile</h1>
+
+        <div id="profile"></div>
+
+        <a href="change-password.html">Change Password</a>
+
+        <button id="logoutButton">Logout</button>
+    </main>
+
+    <script src="users.js"></script>
+
+    <script>
+        const profile = document.getElementById("profile");
+        const logoutButton = document.getElementById("logoutButton");
+
+        async function loadProfile() {
+            const userId = getSession();
+
+            if (!userId) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const user = await getUser(userId);
+                const data = user.data;
+
+                const card = document.createElement("div");
+                card.className = "card";
+
+                const name = document.createElement("h2");
+                name.textContent = data.name;
+
+                const id = document.createElement("p");
+                id.textContent = `User ID: ${user.id}`;
+
+                const email = document.createElement("p");
+                email.textContent = `Email: ${data.email}`;
+
+                const age = document.createElement("p");
+                age.textContent = `Age: ${data.age}`;
+
+                const city = document.createElement("p");
+                city.textContent = `City: ${data.city}`;
+
+                card.append(name, id, email, age, city);
+                profile.appendChild(card);
+
+            } catch (error) {
+                if (error.status === 404) {
+                    logout();
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                profile.textContent =
+                    "The profile could not be loaded. Please try again later.";
+            }
+        }
+
+        logoutButton.addEventListener("click", () => {
+            logout();
+            window.location.href = "login.html";
+        });
+
+        loadProfile();
+    </script>
+
+</body>
+</html>
