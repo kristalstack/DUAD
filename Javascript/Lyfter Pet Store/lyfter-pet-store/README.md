@@ -34,9 +34,9 @@ Interfaz de e-commerce para la API Flask **PetShop API** del módulo anterior. D
 - `index.html`: estructura HTML y puntos de montaje.
 - `styles.css`: diseño responsivo con Grid/Flexbox, unidades relativas `rem`, `%` y `vw`; sin tamaños en `px`.
 - `js/api.js`: **único módulo que realiza solicitudes HTTP**, maneja errores, autorización JWT y almacenamiento de sesión.
-- `js/app.js`: navegación hash, DOM, formularios, vistas y eventos.
-- `serve.py`: servidor estático local para el frontend. La comunicación con Flask se realiza directamente mediante CORS, configurado en el backend.
-- `localStorage`: sesión JWT y referencia del carrito abierto por usuario. Los ítems se persisten realmente en la API, de modo que el carrito también sobrevive a recargas. La sesión se limpia al cerrar sesión.
+- `js/app.js`: navegación hash, notificaciones y coordinación. Las vistas están separadas en `js/views/` y los helpers en `js/utils.js`.
+- Servidor estático: `python3 -m http.server 5500 --bind 127.0.0.1`. La comunicación con Flask se realiza directamente mediante CORS.
+- `localStorage`: guarda la sesión JWT (`lyfter_session`) y una copia del carrito abierto por usuario (`lyfter_cart_<idUsuario>`), incluidos sus ítems. Al abrir el carrito, `getCart()` **lee** la copia local, busca su identificador entre los carritos abiertos de la API y actualiza la copia con los datos vigentes del servidor. La API es la fuente de verdad para stock, cantidades y compra. La copia local se actualiza al añadir, cambiar cantidades o eliminar productos; se borra al finalizar la compra, cerrar sesión o recibir 401. Si el carrito guardado ya no está abierto, se utiliza el abierto que devuelva la API. Esta estrategia permite persistencia local sin permitir que datos desactualizados del navegador determinen una compra.
 - Validación cliente: email con Regex, contraseña mínima de 8 caracteres, campos obligatorios, precios no negativos, cantidades enteras y límites de stock. El backend valida de nuevo.
 - Los errores HTTP se muestran en pantalla; el catálogo vacío tiene estado específico.
 - Los productos de la API **no contienen URLs de imágenes**; se muestran ilustraciones emoji en vez de inventar imágenes.
@@ -65,14 +65,14 @@ Base: `http://127.0.0.1:5000/api`, configurada en `js/api.js`. El frontend reali
 1. Abrir inicio, registrar cuenta y entrar.
 2. Comprobar catálogo vacío; entrar como administrador y crear producto.
 3. Regresar como cliente; ver producto y añadirlo al carrito.
-4. Modificar cantidad, eliminar producto y volver a agregarlo.
+4. Modificar cantidad, eliminar producto y volver a agregarlo. Verificar en DevTools > Application > Local Storage que `lyfter_cart_<idUsuario>` contiene el carrito; recargar la página y comprobar que se recupera y sincroniza. Al finalizar la compra, verificar que la clave se elimina.
 5. Crear dirección, confirmar compra y verificar pantalla de éxito.
-6. Entrar como admin, revisar facturas y comprobar descuento de stock.
+6. Entrar como admin, revisar facturas con nombre y correo del cliente y comprobar descuento de stock.
 7. Probar email inválido, contraseña corta, stock insuficiente y backend apagado.
 
 ## Limitaciones
 
 - El frontend no tiene pasarela de pago real, búsqueda avanzada ni subida de imágenes (no están disponibles en los endpoints proporcionados).
 - El token se guarda en `localStorage` porque así lo exige el curso; en producción sería preferible estudiar cookies HttpOnly, CSP y protección contra XSS.
-- La sesión expira según el JWT del backend (por defecto, 60 minutos); se necesita iniciar sesión nuevamente al expirar.
+- La sesión expira según el JWT del backend (por defecto, 60 minutos). Si una solicitud autenticada devuelve 401, se redirige al inicio de sesión con una notificación.
 - Las pruebas de extremo a extremo requieren que el backend y su base de datos estén ejecutándose.

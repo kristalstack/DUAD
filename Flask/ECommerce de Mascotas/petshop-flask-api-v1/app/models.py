@@ -117,6 +117,7 @@ class Invoice(TimestampMixin, db.Model):
     number = db.Column(db.String(36), nullable=False, unique=True, default=lambda: str(uuid4()), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
     cart_id = db.Column(db.Integer, db.ForeignKey("carts.id"), nullable=False, unique=True)
+    customer = db.relationship("User")
     status = db.Column(db.String(20), nullable=False, default="paid")
     total = db.Column(db.Numeric(12, 2), nullable=False)
     payment_method = db.Column(db.String(30), nullable=False)
@@ -135,6 +136,7 @@ class Invoice(TimestampMixin, db.Model):
         return {
             "id": self.id, "number": self.number, "user_id": self.user_id,
             "cart_id": self.cart_id, "status": self.status, "total": str(self.total),
+            "customer": {"name": self.customer.name, "email": self.customer.email} if self.customer else None,
             "payment_method": self.payment_method, "payment_reference": self.payment_reference,
             "billing_address": {
                 "recipient": self.billing_recipient, "line1": self.billing_line1,

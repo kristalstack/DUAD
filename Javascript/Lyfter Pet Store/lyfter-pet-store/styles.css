@@ -13,3 +13,5 @@
   padding: 0;
   flex-shrink: 0;
 }
+
+.panel-spaced { margin-top: 1rem; }

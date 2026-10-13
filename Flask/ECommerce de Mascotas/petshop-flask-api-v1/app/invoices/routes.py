@@ -16,6 +16,7 @@ def list_invoices():
     stmt = (
         db.select(Invoice)
         .options(
+            selectinload(Invoice.customer),
             selectinload(Invoice.items),
             selectinload(Invoice.returns).selectinload(Return.items),
         )
